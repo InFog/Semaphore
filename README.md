@@ -9,6 +9,12 @@ I mainly use it for unit tests.
 
 Using semaphore is pretty simple, here are some examples:
 
- semaphore -c "py.test" -t 5
+ `semaphore -c "py.test" -t 5`
 
 The line above will call semaphore to run py.test every 5 seconds.
+
+For PHPUnit:
+
+ `semaphore -c "phpunit unit" -t 2`
+
+have fun!
