@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from getopt import getopt
+from os import getcwd, system
+from sys import argv, exit
+from time import sleep
+from Tkinter import Tk
+
+
+def help():
+    print u"""
+        Usage: semaphore -c "command" [-t seconds]
+    """
+
+
+def parse_params():
+    args = getopt(argv[1:], "c:t:")
+
+    command = ""
+    time = 5
+
+    for opt, arg in args[0]:
+        if opt == "-c":
+            command = arg
+        elif opt == "-t":
+            time = int(arg)
+
+    if command == "":
+        help()
+        exit(1)
+
+    return command, time
+
+
+def run(w, time, command):
+    if int(system(command)) == 0:
+        w.configure(background="green")
+    else:
+        w.configure(background="red")
+    w.after(time, run, w, time, command)
+
+
+def main():
+    command, time = parse_params()
+    cwd = getcwd()
+    title = command
+    command = "cd %s; %s > /dev/null" % (cwd, command)
+    time = time * 1000
+
+    w = Tk()
+    w.title("Running %s" % (title))
+    w.after(time, run, w, time, command)
+    w.mainloop()
+
+
+
+if __name__ == "__main__":
+    main()
