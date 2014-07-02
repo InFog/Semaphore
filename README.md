@@ -3,7 +3,9 @@
 Semaphore is a simple Python/Tkinter app to help monitoring status from a given
 command.
 
-I mainly use it for unit tests.
+I mainly use it for unit tests. I keep this little window in somewhere my
+peripheral vison sees what is going on, since I don't always want to know the
+exact reason for a test failing, I just want to know that something is broken.
 
 ## Usage
 
