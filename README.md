@@ -17,4 +17,14 @@ For PHPUnit:
 
  `semaphore -c "phpunit unit" -t 2`
 
+## Screenshots
+
+Failing tests:
+
+![Failing Tests](screenshots/red.png "Failing Tests")
+
+Successful tests:
+
+![Successful Tests](screenshots/green.png "Successful Tests")
+
 have fun!
