@@ -28,13 +28,16 @@ from Tkinter import Tk
 
 
 def help():
-    print u"""
-        Usage: semaphore -c "command" [-t seconds]
-    """
+    print u"""Usage: semaphore -c "command" [-t seconds]"""
 
 
 def parse_params():
-    args = getopt(argv[1:], "c:t:")
+    try:
+        args = getopt(argv[1:], "c:t:")
+    except Exception, e:
+        print e
+        help()
+        exit(1)
 
     command = ""
     time = 5
@@ -52,12 +55,12 @@ def parse_params():
     return command, time
 
 
-def run(w, time, command):
+def run(window, time, command):
     if int(system(command)) == 0:
-        w.configure(background="green")
+        window.configure(background="green")
     else:
-        w.configure(background="red")
-    w.after(time, run, w, time, command)
+        window.configure(background="red")
+    window.after(time, run, window, time, command)
 
 
 def main():
@@ -67,10 +70,10 @@ def main():
     command = "cd %s; %s > /dev/null 2>&1" % (cwd, command)
     time = time * 1000
 
-    w = Tk()
-    w.title("Running %s" % (title))
-    run(w, time, command)
-    w.mainloop()
+    window = Tk()
+    window.title("Running %s" % (title))
+    run(window, time, command)
+    window.mainloop()
 
 
 if __name__ == "__main__":
